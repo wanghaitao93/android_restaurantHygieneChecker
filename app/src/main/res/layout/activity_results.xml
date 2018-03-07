@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#A4E3E3" >
+
+    <ListView
+        android:id="@+id/ShopListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+    <Button
+        android:id="@+id/bt_adMore"
+        android:layout_width="45dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:text="search more"/>
+
+
+
+
+
+
+</LinearLayout>
+

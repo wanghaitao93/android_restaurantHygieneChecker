@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#A4E3E3"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/btLocalSearch"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:text="Local Search" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/etSimpleSearch"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#060B07"
+                android:hint="Search place or business name"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="5dp"
+                />
+
+            <Button
+                android:id="@+id/btFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter1"
+                />
+
+            <ImageButton
+                android:id="@+id/ibSimpleSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/spsearch"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:orientation="vertical">
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="My Favorites"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:paddingLeft="5dp">
+
+            <Button
+                android:id="@+id/btFavorite1"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:text="Restaurant 1" />
+            <Button
+                android:id="@+id/btFavorite2"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:text="Restaurant 2" />
+            <Button
+                android:id="@+id/bt_favorite"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/favmore"/>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

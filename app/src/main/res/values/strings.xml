@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RestaurantHygieneChecker</string>
+    <string name="GMap_api_key">AIzaSyAgoXN3EffFG4w1aC7Ldxj_6EvMsSeig58</string>
+
+</resources>

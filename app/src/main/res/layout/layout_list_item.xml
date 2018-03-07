@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A4E3E3"
+    android:descendantFocusability="blocksDescendants"
+   >
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="87dp"
+        android:layout_height="81dp"
+        android:background="#000"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="82dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+
+        <TextView
+            android:id="@+id/tv_tile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Busniess name"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rating"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/favouriteButton"
+        android:layout_width="77dp"
+        android:layout_height="81dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:src="@drawable/heart_off"
+
+        />
+
+</LinearLayout>
