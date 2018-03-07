@@ -12,18 +12,69 @@
         android:layout_height="wrap_content"
         android:background="#E8F1F4">
         <TextView
-            android:id="@+id/tvCountries"
+            android:id="@+id/tvBusinessName"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="7dp"
             android:layout_marginStart="5dp"
-            android:text="Countries"
+            android:text="Business Name"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/evBusinessName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="7dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E8F1F4">
+        <TextView
+            android:id="@+id/tvRegions"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="5dp"
+            android:text="Regions"
             android:textColor="@color/black"
             android:textSize="15sp" />
     </LinearLayout>
 
     <Spinner
-        android:id="@+id/Spinner_Countries"
+        android:id="@+id/Spinner_Regions"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E8F1F4">
+        <TextView
+            android:id="@+id/tvAuthorities"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="5dp"
+            android:text="Authorities"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/Spinner_Authorities"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginBottom="5dp" />

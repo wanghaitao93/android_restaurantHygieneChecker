@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/RestaurantHygieneChecker 8.iml" filepath="$PROJECT_DIR$/.idea/RestaurantHygieneChecker 8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android_restaurant_hygiene_checker.iml" filepath="$PROJECT_DIR$/android_restaurant_hygiene_checker.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

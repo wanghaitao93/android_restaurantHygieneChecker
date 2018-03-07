@@ -4,12 +4,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import com.example.sunning.restauranthygienechecker.Interface.ApiInterface;
 import com.example.sunning.restauranthygienechecker.Models.BusinessTypes;
-import com.example.sunning.restauranthygienechecker.Models.Countries;
+import com.example.sunning.restauranthygienechecker.Models.Regions;
+import com.example.sunning.restauranthygienechecker.Models.Authorities;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +22,21 @@ public class FilterActivity extends AppCompatActivity {
     // filter button
     private Button sBtnFilter1;
 
-    // Countries
-    private Spinner spinner_Countries;
-    private List<String> list_Countries;
-    private ArrayAdapter<String> adapter_Countries;
-    private List<Countries> Countries;
+    // business name editview
+    private EditText searchContent;
+
+    // Regions
+    private Spinner spinner_Regions;
+    private List<String> list_Regions;
+    private ArrayAdapter<String> adapter_Regions;
+    private List<Regions> Regions;
+
+    // Authorities
+    private Spinner spinner_Authorities;
+    private List<String> list_Authorities;
+    private  ArrayAdapter<String> adapter_Authorities;
+    private List<Authorities> Authorities;
+
 
     // business type
     private Spinner spinner_business_type;
@@ -49,21 +63,32 @@ public class FilterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filter);
 
 
+        // business name edittext
+        searchContent =(EditText)findViewById(R.id.evBusinessName);
+
         // filter button and set button clickListener
         sBtnFilter1 = findViewById(R.id.btFilter1);
         sBtnFilter1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                int CountriesIndex = spinner_Countries.getSelectedItemPosition();
+
+                String BusinessNameStr = searchContent.getText().toString();
+                System.out.println("BusinessNameStr : " + BusinessNameStr);
+                int AuthoritiesIndex = spinner_Authorities.getSelectedItemPosition();
                 int businessTypesIndex = spinner_business_type.getSelectedItemPosition();
                 int ragingsIndex = spinner_rating.getSelectedItemPosition();
                 int disRangeIndex = spinner_distance_type.getSelectedItemPosition();
 
-                String CountriesId = "All", businessTypeId = "All", ratingsId = "All", disRangeId = "All";
+                if (BusinessNameStr.equals(""))
+                {
+                    BusinessNameStr = "All";
+                }
 
-                if (CountriesIndex != 0){
-                    CountriesId = Countries.get(CountriesIndex).getCountriesId().toString();
+                String AuthoritiesId = "All", businessTypeId = "All", ratingsId = "All", disRangeId = "All";
+
+                if (AuthoritiesIndex != 0){
+                    AuthoritiesId = Authorities.get(AuthoritiesIndex).getLocalAuthorities().toString();
                 }
 
                 if (businessTypesIndex != 0){
@@ -80,7 +105,8 @@ public class FilterActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(FilterActivity.this, ResultsActivity.class);
                 intent.putExtra("searchType","advanced");
-                intent.putExtra("searchCountries", CountriesId);
+                intent.putExtra("searchBusinessName", BusinessNameStr);
+                intent.putExtra("searchRegions", AuthoritiesId);
                 intent.putExtra("searchBusinessTypes", businessTypeId);
                 intent.putExtra("searchRatings", ratingsId);
                 intent.putExtra("searchDisRange", disRangeId);
@@ -90,18 +116,36 @@ public class FilterActivity extends AppCompatActivity {
 
 
         // business_type spinner
-        downCountriesDatas();
-        spinner_Countries = findViewById(R.id.Spinner_Countries);
-        adapter_Countries = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list_Countries);
-        adapter_Countries.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        spinner_Countries.setAdapter(adapter_Countries);
+        initRegionsDatas();
+        spinner_Regions = findViewById(R.id.Spinner_Regions);
+        adapter_Regions = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list_Regions);
+        adapter_Regions.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spinner_Regions.setAdapter(adapter_Regions);
 
-        // Countries spinner
-        downBusinessTypeDatas();
+        // Regions spinner
+        initBusinessTypeDatas();
         spinner_business_type = findViewById(R.id.Spinner_BusinessType);
         adapter_business_type = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list_business_type);
         adapter_business_type.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinner_business_type.setAdapter(adapter_business_type);
+
+        spinner_Regions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                if (position != 0){
+                    String regionName = Regions.get(position).getRegionsName().toString();
+                    setAuthoritiesAdapter(regionName);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        // Authorities spinner
+        spinner_Authorities = findViewById(R.id.Spinner_Authorities);
+        initAuthoritiesData();
 
         // rating spinner
         initRatings();
@@ -119,21 +163,50 @@ public class FilterActivity extends AppCompatActivity {
     }
 
 
-    // download Countries datas from website
-    private void downCountriesDatas()
+    // download Regions datas from website
+    private void initRegionsDatas()
     {
-        Countries = ApiInterface.getCountriesType();
-        System.out.println("Countries size : " + Countries.size());
-        list_Countries = new ArrayList<String>();
-        list_Countries.add("All");
-        for(int i = 0; i < Countries.size(); i++)
+        Regions = ApiInterface.getRegionsType();
+        System.out.println("Regions size : " + Regions.size());
+        list_Regions = new ArrayList<String>();
+        list_Regions.add("All");
+        for(int i = 0; i < Regions.size(); i++)
         {
-            list_Countries.add(Countries.get(i).getCountriesName());
+            list_Regions.add(Regions.get(i).getRegionsName());
         }
     }
 
+    // down Authorities datas from website
+    private void initAuthoritiesData()
+    {
+        Authorities = ApiInterface.getAuthorities();
+        System.out.println("Authorities size : " + Authorities.size());
+        list_Authorities = new ArrayList<String>();
+        list_Authorities.add("All");
+
+        adapter_Authorities = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list_Authorities);
+        adapter_Authorities.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spinner_Authorities.setAdapter(adapter_Authorities);
+
+    }
+
+    private void setAuthoritiesAdapter(String regionName)
+    {
+        list_Authorities.clear();
+        list_Authorities.add("All");
+        for (int i = 0; i < Authorities.size(); i++)
+        {
+            if (Authorities.get(i).getRegionName().equals(regionName))
+            {
+                list_Authorities.add(Authorities.get(i).getAuthoritiesName());
+            }
+        }
+        adapter_Authorities = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list_Authorities);
+        adapter_Authorities.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spinner_Authorities.setAdapter(adapter_Authorities);
+    }
     // download BusinessType datas from website
-    private void downBusinessTypeDatas()
+    private void initBusinessTypeDatas()
     {
         businessTypes = ApiInterface.getBusinessTypes();
         System.out.println("BusinessType size : " + businessTypes.size());
@@ -153,7 +226,6 @@ public class FilterActivity extends AppCompatActivity {
         list_rating.add("3 rating");
         list_rating.add("4 rating");
         list_rating.add("5 rating");
-
     }
 
     // initial max distance category
@@ -168,7 +240,6 @@ public class FilterActivity extends AppCompatActivity {
         list_disRange.add("6 miles");
         list_disRange.add("7 miles");
         list_disRange.add("8 miles");
-
     }
 
 }

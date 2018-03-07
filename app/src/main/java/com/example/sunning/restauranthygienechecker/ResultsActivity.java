@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ResultsActivity extends AppCompatActivity {
+public class  ResultsActivity extends AppCompatActivity {
     private ListView listView;
     public static List<Establishment> results;
     private ApiInterface apiInterface;
@@ -57,12 +57,13 @@ public class ResultsActivity extends AppCompatActivity {
             case "advanced":
 
                 apiInterface = new ApiInterface();
-                String searchRegions = extras.getString("searchCountries");
+                String searchBusinessName = extras.getString("searchBusinessName");
+                String searchRegions = extras.getString("searchRegions");
                 String searchBusinessTypes = extras.getString("searchBusinessTypes");
                 String searchRatings = extras.getString("searchRatings");
                 String searchDisRange = extras.getString("searchDisRange");
 
-                results = apiInterface.getAdvancedEstablishments(searchRegions, searchBusinessTypes, searchRatings, searchDisRange);
+                results = apiInterface.getAdvancedEstablishments(searchBusinessName, searchRegions, searchBusinessTypes, searchRatings, searchDisRange);
                 if (results != null) {
                     ListViewAdapter adapter = new ListViewAdapter(getApplicationContext(), results);
                     listView.setAdapter(adapter);

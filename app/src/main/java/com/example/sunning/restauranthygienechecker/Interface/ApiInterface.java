@@ -1,8 +1,9 @@
 package com.example.sunning.restauranthygienechecker.Interface;
 
+import com.example.sunning.restauranthygienechecker.Models.Authorities;
 import com.example.sunning.restauranthygienechecker.Models.BusinessTypes;
 import com.example.sunning.restauranthygienechecker.Models.Establishment;
-import com.example.sunning.restauranthygienechecker.Models.Countries;
+import com.example.sunning.restauranthygienechecker.Models.Regions;
 import com.example.sunning.restauranthygienechecker.Models.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -77,23 +78,22 @@ public class ApiInterface {
         }
     }
 
+    // acquire Regions name from website
+    public static List<Regions> getRegionsType() {
 
-
-    // acquire Countries name from website
-    public static List<Countries> getCountriesType() {
-
-        String queryUrl = baseUrl + "/Countries/basic";
+        String queryUrl = baseUrl + "/Regions/basic";
 
         try {
-            List<Countries> results = new ArrayList<>();
 
+            List<Regions> results = new ArrayList<>();
             ResponseEntity<String> responseEntity = rest.exchange(queryUrl, HttpMethod.GET, requestEntity, String.class);
             String response = responseEntity.getBody();
-            JSONObject object = new JSONObject(response);
-            JSONArray resultArr = object.getJSONArray("countries");
-            String result = resultArr.toString();
-            results = new Gson().fromJson(result, new TypeToken<List<Countries>>() {}.getType());
 
+            JSONObject object = new JSONObject(response);
+            JSONArray resultArr = object.getJSONArray("regions");
+            String result = resultArr.toString();
+
+            results = new Gson().fromJson(result, new TypeToken<List<Regions>>() {}.getType());
             return results;
 
         } catch (JSONException e) {
@@ -102,22 +102,43 @@ public class ApiInterface {
         }
     }
 
+    // acquire authorities  from website
+    public static List<Authorities> getAuthorities() {
+        String queryUrl = baseUrl + "/Authorities";
+        try {
 
+            List<Authorities> results = new ArrayList<>();
+            ResponseEntity<String> responseEntity = rest.exchange(queryUrl, HttpMethod.GET, requestEntity, String.class);
+            String response = responseEntity.getBody();
+
+            JSONObject object = new JSONObject(response);
+            JSONArray resultArr = object.getJSONArray("authorities");
+            String result = resultArr.toString();
+
+            results = new Gson().fromJson(result, new TypeToken<List<Authorities>>() {}.getType());
+            return results;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     // acquire business type name from website
     public static List<BusinessTypes> getBusinessTypes() {
 
         String queryUrl = baseUrl + "/BusinessTypes/basic";
 
         try {
-            List<BusinessTypes> results = new ArrayList<>();
 
+            List<BusinessTypes> results = new ArrayList<>();
             ResponseEntity<String> responseEntity = rest.exchange(queryUrl, HttpMethod.GET, requestEntity, String.class);
             String response = responseEntity.getBody();
+
             JSONObject object = new JSONObject(response);
             JSONArray resultArr = object.getJSONArray("businessTypes");
             String result = resultArr.toString();
-            results = new Gson().fromJson(result, new TypeToken<List<BusinessTypes>>() {}.getType());
 
+            results = new Gson().fromJson(result, new TypeToken<List<BusinessTypes>>() {}.getType());
             return results;
 
         } catch (JSONException e) {
@@ -128,14 +149,19 @@ public class ApiInterface {
 
 
     // advanced search
-    public static List<Establishment> getAdvancedEstablishments(String searchCountries, String searchBusinessTypes, String searchRatings, String searchDisRange) {
+    public static List<Establishment> getAdvancedEstablishments(String searchBusinessName, String searchRegions, String searchBusinessTypes, String searchRatings, String searchDisRange) {
 
         String queryUrl = baseUrl + "/Establishments?pageNumber=1&pageSize=10";
         String filterStr = "";
 
-        // Countries
-        if (!searchCountries.equals("All")){
-            filterStr += "&countryId=" + searchCountries;
+        // Business Name
+        if(!searchBusinessName.equals("All")){
+            filterStr += "&name=\"" + searchBusinessName + "\"";
+        }
+
+        // Regions
+        if (!searchRegions.equals("All")){
+            filterStr += "&localAuthorityId=" + searchRegions;
         }
 
         // business

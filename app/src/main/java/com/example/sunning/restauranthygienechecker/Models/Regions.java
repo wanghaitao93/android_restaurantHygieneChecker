@@ -9,18 +9,17 @@ public class Regions {
     private String name;
     private String id;
 
-    public String getRegionsType() {
+    public String getRegionsName() {
          return  name;
     }
-    public void setRegionsType(String regions_type) {
+    public void setRegionsName(String name) {
         this.name = name;
     }
 
-
-    public String getRegionsid() {
+    public String getRegionsId() {
         return  id;
     }
-    public void setRegionsid(String id) {
+    public void setRegionsId(String id) {
         this.id = id;
     }
 
